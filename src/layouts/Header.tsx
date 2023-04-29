@@ -1,11 +1,15 @@
 import * as React from 'react'
+import NextLink from 'next/link'
+import { ConnectKitButton } from 'connectkit'
+
+// ** MUI Imports
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import SwapCallsIcon from '@mui/icons-material/SwapCalls'
-import { ConnectKitButton } from 'connectkit'
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser'
+import UserDropdown from './UserDropwdown'
 
 function Header() {
   const LOGO_TEXT = 'SIWE-AUTH'
@@ -14,7 +18,7 @@ function Header() {
     <AppBar position='static'>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          <SwapCallsIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <VerifiedUserIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant='h6'
             noWrap
@@ -33,7 +37,7 @@ function Header() {
             {LOGO_TEXT}
           </Typography>
 
-          <SwapCallsIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <VerifiedUserIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant='h5'
             noWrap
@@ -55,8 +59,10 @@ function Header() {
 
           <Box sx={{ flexGrow: 1 }} />
 
-          <Box sx={{ flexGrow: 0 }}>
-            <ConnectKitButton />
+          <Box sx={{ flexGrow: 0, display: 'flex', flexDirection: 'row', gap: '12px', alignItems: 'center' }}>
+            <NextLink href={'/home'}>Home</NextLink>
+            <NextLink href={'/profile'}>Profile</NextLink>
+            <UserDropdown />
           </Box>
         </Toolbar>
       </Container>
