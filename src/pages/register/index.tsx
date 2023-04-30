@@ -88,14 +88,11 @@ const RegisterPage = ({ host }: { host: string }) => {
         nonce
       })
 
-      console.log('signupResponse => ', signupResponse)
-
       setLoading(false)
     } catch (e: any) {
-      console.log(e.response.message)
       setError('username', {
         type: 'manual',
-        message: ''
+        message: 'User already exists'
       })
 
       setLoading(false)
