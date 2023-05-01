@@ -38,7 +38,7 @@ const AuthGuard = (props: AuthGuardProps) => {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [router.route]
+    [router.route, auth.user, auth.loading]
   )
 
   if (auth.loading || auth.user === null) {
