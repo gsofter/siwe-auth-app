@@ -9,7 +9,7 @@ export const axiosClient = axios.create({
 const requestIntercepter = async (config: AxiosRequestConfig) => {
   const authToken = getCookie('access_token')
 
-  if (config.headers) {
+  if (authToken && config.headers) {
     config.headers.Authorization = `Bearer ${authToken}`
   }
 
