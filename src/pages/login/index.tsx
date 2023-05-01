@@ -25,9 +25,12 @@ import { setCookie } from '@/lib/cookies'
 import { useAuth } from '@/hooks/useAuth'
 
 const LoginPage = ({ host }: { host: string }) => {
+  // ** States
+  const [loading, setLoading] = useState(false)
+  const [errorMsg, setErrorMsg] = useState<string | null>(null)
+
   // ** Hooks
   const { address, isConnected } = useAccount()
-  const [loading, setLoading] = useState(false)
   const { fetchUserProfile } = useAuth()
 
   const onClickSignIn = async () => {
@@ -63,7 +66,7 @@ const LoginPage = ({ host }: { host: string }) => {
       setLoading(false)
     } catch (e: any) {
       console.log(e.message)
-
+      setErrorMsg('Login Failed, try with different wallet!')
       setLoading(false)
     }
   }
@@ -86,6 +89,8 @@ const LoginPage = ({ host }: { host: string }) => {
           </Box>
 
           <WalletConnectButton />
+
+          <Typography color={'error'}> {errorMsg}</Typography>
 
           {isConnected ? (
             <Button
