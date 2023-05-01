@@ -65,7 +65,6 @@ const LoginPage = ({ host }: { host: string }) => {
 
       setLoading(false)
     } catch (e: any) {
-      console.log(e.message)
       setErrorMsg('Login Failed, try with different wallet!')
       setLoading(false)
     }
