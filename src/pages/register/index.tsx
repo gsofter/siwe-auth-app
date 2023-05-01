@@ -30,6 +30,8 @@ import { WalletConnectButton } from '@/components/ConnectKitButton'
 
 import { createSiweMessage } from '@/lib/siwe'
 import { axiosClient } from '@/lib/axiosClient'
+import { useAuth } from '@/hooks/useAuth'
+import { setCookie } from '@/lib/cookies'
 
 const schema = yup.object().shape({
   username: yup.string().required()
@@ -46,6 +48,7 @@ interface FormData {
 const RegisterPage = ({ host }: { host: string }) => {
   // ** Hooks
   const { address, isConnected } = useAccount()
+  const { fetchUserProfile } = useAuth()
   const [loading, setLoading] = useState(false)
 
   const {
@@ -80,13 +83,17 @@ const RegisterPage = ({ host }: { host: string }) => {
 
       const signature = await signer.signMessage(message)
 
-      const signupResponse = await axiosClient.post(`/user/signup`, {
+      const response = await axiosClient.post(`/user/signup`, {
         message,
         signature,
         username,
         eoaAddress: address,
         nonce
       })
+
+      setCookie('access_token', response.data.access_token)
+
+      await fetchUserProfile()
 
       setLoading(false)
     } catch (e: any) {
